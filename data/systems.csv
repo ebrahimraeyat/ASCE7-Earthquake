@@ -13,9 +13,9 @@ A. BEARING WALL SYSTEMS,,Ra,?0g,Cdb,B,C,Dd
 12. Prestressed masonry shear walls,14.4,1.5,2.5,1.75,NL,NP,NP
 13. Ordinary reinforced Autoclaved Aerated Concrete (AAC) masonry shear walls,14.4,2,2.5,2,NL,35,NP
 14. Ordinary plain (unreinforced) Autoclaved Aerated Concrete (AAC) masonry shear walls,14.4,1.5,2.5,1.5,NL,NP,NP
-15. Light-frame (wood) walls sheathed with wood structural panels rated for shear resistance or steel sheets,14.1 and 14.5,6.5,3,4,NL,NL,65
+15. Light-frame (wood) walls sheathed with wood structural panels rated for shear resistance or steel sheets,"14.1, 14.5",6.5,3,4,NL,NL,65
 16. Light-frame (cold-formed steel) walls sheathed with wood structural panels rated for shear resistance or steel sheets,14.1,6.5,3,4,NL,NL,65
-17. Light-frame walls with shear panels of all other materials,14.1 and 14.5,2,2.5,2,NL,NL,35
+17. Light-frame walls with shear panels of all other materials,"14.1, 14.5",2,2.5,2,NL,NL,35
 18. Light-frame (cold-formed steel) wall systems using flat strap bracing,14.1,4,2,3.5,NL,NL,65
 B. BUILDING FRAME SYSTEMS,,Ra,?0g,Cdb,B,C,Dd
 1. Steel eccentrically braced frames,14.1,8,2,4,NL,NL,NL
@@ -23,7 +23,7 @@ B. BUILDING FRAME SYSTEMS,,Ra,?0g,Cdb,B,C,Dd
 3. Steel ordinary concentrically braced frames,14.1,3.25,2,3.25,NL,NL,35
 4. Special reinforced concrete shear walls,14.2,6,2.5,5,NL,NL,NL
 5. Ordinary reinforced concrete shear walls,14.2,5,2.5,4.5,NL,NL,NP
-6. Detailed plain concrete shear walls,14.2 and 14.2.2.8,2,2.5,2,NL,NP,NP
+6. Detailed plain concrete shear walls,"14.2, 14.2.2.8",2,2.5,2,NL,NP,NP
 7. Ordinary plain concrete shear walls,14.2,1.5,2.5,1.5,NL,NP,NP
 8. Intermediate precast shear walls,14.2,5,2.5,4.5,NL,NL,40
 9. Ordinary precast shear walls,14.2,4,2.5,4,NL,NP,NP
@@ -41,18 +41,18 @@ B. BUILDING FRAME SYSTEMS,,Ra,?0g,Cdb,B,C,Dd
 21. Prestressed masonry shear walls,14.4,1.5,2.5,1.75,NL,NP,NP
 22. Light-frame (wood) walls sheathed with wood structural panels rated for shear resistance,14.5,7,2.5,4.5,NL,NL,65
 23. Light-frame (cold-formed steel) walls sheathed with wood structural panels rated for shear resistance or steel sheets,14.1,7,2.5,4.5,NL,NL,65
-24. Light-frame walls with shear panels of all other materials,14.1 and 14.5,2.5,2.5,2.5,NL,NL,35
+24. Light-frame walls with shear panels of all other materials,"14.1, 14.5",2.5,2.5,2.5,NL,NL,35
 25. Steel buckling-restrained braced frames,14.1,8,2.5,5,NL,NL,NL
 26. Steel special plate shear walls,14.1,7,2,6,NL,NL,NL
 C. MOMENT-RESISTING FRAME SYSTEMS,,Ra,?0g,Cdb,B,C,Dd
-1. Steel special moment frames,14.1 and 12.2.5.5,8,3,5.5,NL,NL,NL
+1. Steel special moment frames,"14.1, 12.2.5.5",8,3,5.5,NL,NL,NL
 2. Steel special truss moment frames,14.1,7,3,5.5,NL,NL,NL
-3. Steel intermediate moment frames,14.1 and 12.2.5.7,4.5,3,4,NL,NL,35
-4. Steel ordinary steel moment frames,14.1 and 12.2.5.6,3.5,3,3,NL,NL,NP
-5. Special reinforced concrete moment frames,14.2 and 12.2.5.5,8,3,5.5,NL,NL,NL
+3. Steel intermediate moment frames,"14.1, 12.2.5.7",4.5,3,4,NL,NL,35
+4. Steel ordinary steel moment frames,"14.1, 12.2.5.6",3.5,3,3,NL,NL,NP
+5. Special reinforced concrete moment frames,"14.2, 12.2.5.5",8,3,5.5,NL,NL,NL
 6. Intermediate reinforced concrete moment frames,14.2,5,3,4.5,NL,NL,NP
 7. Ordinary reinforced concrete moment frames,14.2,3,3,2.5,NL,NP,NP
-8. Steel and concrete composite special moment frames,14.3 and 12.2.5.5,8,3,5.5,NL,NL,NL
+8. Steel and concrete composite special moment frames,"14.3, 12.2.5.5",8,3,5.5,NL,NL,NL
 9. Steel and concrete composite intermediate moment frames,14.3,5,3,4.5,NL,NL,NP
 10. Steel and concrete composite partially restrained moment frames,14.3,6,3,5.5,NL,NL,100
 11. Steel and concrete composite ordinary moment frames,14.3,3,3,2.5,NL,NP,NP
@@ -80,11 +80,11 @@ E. DUAL SYSTEMS WITH INTERMEDIATE MOMENT FRAMES CAPABLE OF RESISTING AT LEAST 25
 6. Steel and concrete composite ordinary braced frames,14.3,3.5,2.5,3,NL,NL,NP
 7. Steel and concrete composite ordinary shear walls,14.3,5,3,4.5,NL,NL,NP
 8. Ordinary reinforced concrete shear wallsÿl,14.2,5.5,2.5,4.5,NL,NL,NP
-F. SHEAR WALL-FRAME INTERACTIVE SYSTEM WITH ORDINARY REINFORCED CONCRETE MOMENT REINFORCED CONCRETE MOMENT FRAMES AND ORDINARY REINFORCED CONCRETE SHEAR WALLS,14.2 and 12.2.5.8,4.5,2.5,4,NL,NP,NP
+F. SHEAR WALL-FRAME INTERACTIVE SYSTEM WITH ORDINARY REINFORCED CONCRETE MOMENT REINFORCED CONCRETE MOMENT FRAMES AND ORDINARY REINFORCED CONCRETE SHEAR WALLS,"14.2, 12.2.5.8",4.5,2.5,4,NL,NP,NP
 G. CANTILEVERED COLUMN SYSTEMS REQUIREMENTS FOR: DETAILED TO CONFORM TO THE,12.2.5.2,Ra,?0g,Cdb,B,C,Dd
 1. Steel special cantilever column systems,14.1,2.5,1.25,2.5,35,35,35
 2. Steel ordinary cantilever column systems,14.1,1.25,1.25,1.25,35,35,NP
-3. Special reinforced concrete moment frames,14.2 and 12.2.5.5,2.5,1.25,2.5,35,35,35
+3. Special reinforced concrete moment frames,"14.2, 12.2.5.5",2.5,1.25,2.5,35,35,35
 4. Intermediate reinforced concrete moment frames,14.2,1.5,1.25,1.5,35,35,NP
 5. Ordinary reinforced concrete moment frames,14.2,1,1.25,1,35,NP,NP
 6. Timber frames,14.5,1.5,1.5,1.5,35,35,35

@@ -50,12 +50,12 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         self.systems_treeview.expanded.connect(self.tree_expanded)
 
     def tree_expanded(self):
-        for column in range(self.systems_treeview.model().columnCount(
-                            QModelIndex())):
+        for column in range(1, self.systems_treeview.model().columnCount(
+                            QModelIndex()) - 1):
             self.systems_treeview.resizeColumnToContents(column)
     
     def fill_province(self):
-        csv_path = CURRENT_DIR / 'data' / 'PGA.csv'
+        csv_path = CURRENT_DIR / 'data' / 'PGA-Ss-S1.csv'
         provinces = []
         with open(csv_path, 'r') as f:
             reader = csv.reader(f, delimiter=',')
@@ -140,7 +140,7 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
 
                 root.addChild(treeview.CustomNode(row))
 
-        self.systems_treeview.setModel(treeview.CustomModel(list(items.values()), headers=('System', 'AISC 7-16 Section', 'R', 'Omega', 'Cd', 'B', 'C', 'D')))
+        self.systems_treeview.setModel(treeview.CustomModel(list(items.values()), headers=('System', 'ASCE 7-16 Section', 'R', 'Omega', 'Cd', 'B', 'C', 'D')))
 
 
     def plot_item(self, x, y, color='r'):
