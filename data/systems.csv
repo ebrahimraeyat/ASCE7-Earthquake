@@ -79,7 +79,7 @@ E. DUAL SYSTEMS WITH INTERMEDIATE MOMENT FRAMES CAPABLE OF RESISTING AT LEAST 25
 5. Steel and concrete composite special concentrically braced frames,14.3,5.5,2.5,4.5,NL,NL,NL
 6. Steel and concrete composite ordinary braced frames,14.3,3.5,2.5,3,NL,NL,NP
 7. Steel and concrete composite ordinary shear walls,14.3,5,3,4.5,NL,NL,NP
-8. Ordinary reinforced concrete shear wallsÿl,14.2,5.5,2.5,4.5,NL,NL,NP
+8. Ordinary reinforced concrete shear walls,14.2,5.5,2.5,4.5,NL,NL,NP
 F. SHEAR WALL-FRAME INTERACTIVE SYSTEM WITH ORDINARY REINFORCED CONCRETE MOMENT REINFORCED CONCRETE MOMENT FRAMES AND ORDINARY REINFORCED CONCRETE SHEAR WALLS,"14.2, 12.2.5.8",4.5,2.5,4,NL,NP,NP
 G. CANTILEVERED COLUMN SYSTEMS REQUIREMENTS FOR: DETAILED TO CONFORM TO THE,12.2.5.2,Ra,?0g,Cdb,B,C,Dd
 1. Steel special cantilever column systems,14.1,2.5,1.25,2.5,35,35,35
