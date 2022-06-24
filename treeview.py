@@ -148,9 +148,10 @@ class MyTree():
                 root.addChild(CustomNode(row))
 
         self.tw = QtWidgets.QTreeView()
-        self.tw.setModel(CustomModel(list(self.items.values()), headers=('System', 'AISC Section', 'R', 'Omega', 'Cd', 'B', 'C', 'D')))
+        self.tw.setModel(CustomModel(list(self.items.values()), headers=('System', 'ASCE 7-16 Section', 'R', 'Omega', 'Cd', 'B', 'C', 'D')))
 
 if __name__ == "__main__":
+    import sys
     app = QtWidgets.QApplication(sys.argv)
     mytree = MyTree()
     mytree.tw.show()
