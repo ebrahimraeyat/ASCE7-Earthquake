@@ -92,12 +92,18 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QLineEdit" name="pga">
-             <property name="enabled">
-              <bool>true</bool>
+            <widget class="QDoubleSpinBox" name="pga">
+             <property name="decimals">
+              <number>1</number>
              </property>
-             <property name="readOnly">
-              <bool>true</bool>
+             <property name="minimum">
+              <double>0.100000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>0.700000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
              </property>
             </widget>
            </item>
@@ -308,16 +314,6 @@
              </property>
             </widget>
            </item>
-           <item row="7" column="1">
-            <widget class="QLineEdit" name="lineEdit_6">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
            <item row="8" column="0">
             <widget class="QLabel" name="label_7">
              <property name="maximumSize">
@@ -334,16 +330,6 @@
              </property>
             </widget>
            </item>
-           <item row="8" column="1">
-            <widget class="QLineEdit" name="lineEdit_5">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
            <item row="4" column="1">
             <widget class="QDoubleSpinBox" name="fa">
              <property name="singleStep">
@@ -356,6 +342,29 @@
            </item>
            <item row="5" column="1">
             <widget class="QDoubleSpinBox" name="fv">
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+             <property name="value">
+              <double>1.500000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1">
+            <widget class="QDoubleSpinBox" name="sds">
+             <property name="maximum">
+              <double>100.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+             <property name="value">
+              <double>1.500000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="1">
+            <widget class="QDoubleSpinBox" name="sd1">
              <property name="singleStep">
               <double>0.100000000000000</double>
              </property>

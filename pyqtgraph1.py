@@ -31,6 +31,8 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         self.fill_province()
         self.update_cities()
         self.set_pga_ss_s1()
+        self.set_sds()
+        self.set_sd1()
         self.create_connections()
 
     def set_plot_widget(self):
@@ -47,7 +49,23 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         self.ct.valueChanged.connect(self.set_period)
         self.x.valueChanged.connect(self.set_period)
         self.H.valueChanged.connect(self.set_period)
-        self.systems_treeview.expanded.connect(self.tree_expanded)
+        self.ss.valueChanged.connect(self.set_sds)
+        self.s1.valueChanged.connect(self.set_sd1)
+        self.fa.valueChanged.connect(self.set_sds)
+        self.fv.valueChanged.connect(self.set_sd1)
+        # self.systems_treeview.expanded.connect(self.tree_expanded)
+
+    def set_sds(self):
+        fa = self.fa.value()
+        ss = self.ss.value()
+        sds = (2 / 3) * fa * ss
+        self.sds.setValue(sds)
+    
+    def set_sd1(self):
+        fv = self.fv.value()
+        s1 = self.s1.value()
+        sd1 = (2 / 3) * fv * s1
+        self.sd1.setValue(sd1)
 
     def tree_expanded(self):
         for column in range(1, self.systems_treeview.model().columnCount(
@@ -91,7 +109,7 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
     def set_pga_ss_s1(self):
         city = self.city.currentText()
         d = self.cities_pga[city]
-        self.pga.setText(d['PGA'])
+        self.pga.setValue(float(d['PGA']))
         self.ss.setValue(float(d['Ss']))
         self.s1.setValue(float(d['S1']))
 
