@@ -108,7 +108,9 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
 
     def set_pga_ss_s1(self):
         city = self.city.currentText()
-        d = self.cities_pga[city]
+        d = self.cities_pga.get(city, None)
+        if d is None:
+            return
         self.pga.setValue(float(d['PGA']))
         self.ss.setValue(float(d['Ss']))
         self.s1.setValue(float(d['S1']))
