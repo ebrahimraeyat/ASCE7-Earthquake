@@ -1,10 +1,12 @@
 
 
 
-import os
+# import os
 import sys
 import csv
 from pathlib import Path
+
+import numpy as np
 
 from PyQt5 import  QtWidgets, uic, QtCore
 from PyQt5.QtCore import QModelIndex
@@ -33,6 +35,7 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         self.set_pga_ss_s1()
         self.set_sds()
         self.set_sd1()
+        self.update_sa_plot()
         self.create_connections()
 
     def set_plot_widget(self):
@@ -40,6 +43,9 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         self.spectral.addWidget(self.graphWidget)
         self.graphWidget.setLabel('bottom', 'Period T', units='sec.')
         self.graphWidget.setLabel('left', 'Sa')
+        self.graphWidget.setXRange(0, 4.5, padding=0)
+        self.graphWidget.setYRange(0, 3, padding=0)
+        self.graphWidget.showGrid(x=True, y=True)
 
     def create_connections(self):
         self.site_class_combo.currentIndexChanged.connect(self.update_ui)
@@ -53,6 +59,8 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         self.s1.valueChanged.connect(self.set_sd1)
         self.fa.valueChanged.connect(self.set_sds)
         self.fv.valueChanged.connect(self.set_sd1)
+        self.sds.valueChanged.connect(self.update_sa_plot)
+        self.sd1.valueChanged.connect(self.update_sa_plot)
         # self.systems_treeview.expanded.connect(self.tree_expanded)
 
     def set_sds(self):
@@ -168,15 +176,33 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         finitecurve = pg.PlotDataItem(x, y, connect="finite", pen=pen)
         return finitecurve
 
+    def update_sa_plot(self):
+        sds = self.sds.value()
+        sd1 = self.sd1.value()
+        ts = sd1 / sds
+        t0 = 0.2 * ts
+        sa_values = []
+        x = np.arange(0, 4.5, .05)
+        for t in x:
+            if t < t0:
+                sa = sds * (0.4 + 0.6 * t / t0)
+            elif t0 <= t <= ts:
+                sa = sds
+            elif t > ts:
+                sa = sd1 / t
+            sa_values.append(sa)
+        self.graphWidget.clear()
+        self.graphWidget.addItem(self.plot_item(x, np.array(sa_values)))
+
+
+
+
+
 
 if __name__ == "__main__":
     QtWidgets.QApplication.setHighDpiScaleFactorRoundingPolicy(QtCore.Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
     app = QtWidgets.QApplication(sys.argv)
     window = Ui()
-    x, y = [0, 1, 5, 10], [0, 1, 2, 7]
-    window.graphWidget.setXRange(-0.2 * min(x), 1.2 * max(x))
-    window.graphWidget.setYRange(-0.2 * min(y), 1.2 * max(y))
-    window.graphWidget.addItem(window.plot_item(x, y))
     window.show()
     sys.exit(app.exec_())
