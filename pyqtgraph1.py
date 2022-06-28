@@ -169,6 +169,7 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
                 root.addChild(treeview.CustomNode(row))
 
         self.systems_treeview.setModel(treeview.CustomModel(list(items.values()), headers=('System', 'ASCE 7 Section', 'R', 'Omega', 'Cd', 'B', 'C', 'D')))
+        self.systems_treeview.setColumnWidth(0, 400)
 
 
     def plot_item(self, x, y, color='r'):
