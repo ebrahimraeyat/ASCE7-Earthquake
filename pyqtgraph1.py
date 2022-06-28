@@ -62,6 +62,24 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         self.sds.valueChanged.connect(self.update_sa_plot)
         self.sd1.valueChanged.connect(self.update_sa_plot)
         # self.systems_treeview.expanded.connect(self.tree_expanded)
+        self.systems_treeview.clicked.connect(self.set_system_property)
+
+    def set_system_property(self):
+        index = self.systems_treeview.selectedIndexes()[0]
+        if index.isValid():
+            data = index.internalPointer()._data
+            print(data)
+            if len(data) == 1:
+                return
+            try:
+                r = float(data[2])
+                omega = float(data[3])
+                cd = float(data[4])
+                self.R.setValue(r)
+                self.omega.setValue(omega)
+                self.cd.setValue(cd)
+            except:
+                pass
 
     def set_sds(self):
         fa = self.fa.value()
