@@ -43,8 +43,8 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         self.spectral.addWidget(self.graphWidget)
         self.graphWidget.setLabel('bottom', 'Period T', units='sec.')
         self.graphWidget.setLabel('left', 'Sa')
-        self.graphWidget.setXRange(0, 4.5, padding=0)
-        self.graphWidget.setYRange(0, 3, padding=0)
+        self.graphWidget.setXRange(0, 2, padding=0)
+        # self.graphWidget.setYRange(0, 3, padding=0)
         self.graphWidget.showGrid(x=True, y=True)
 
     def create_connections(self):
@@ -202,7 +202,7 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         ts = sd1 / sds
         t0 = 0.2 * ts
         sa_values = []
-        x = np.arange(0, 4.5, .005)
+        x = np.arange(0, 2, .005)
         for t in x:
             if t < t0:
                 sa = sds * (0.4 + 0.6 * t / t0)
