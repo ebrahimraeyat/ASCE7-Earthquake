@@ -198,20 +198,24 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
     def update_sa_plot(self):
         sds = self.sds.value()
         sd1 = self.sd1.value()
+        tl = self.tl.value()
         ts = sd1 / sds
         t0 = 0.2 * ts
         sa_values = []
-        x = np.arange(0, 4.5, .05)
+        x = np.arange(0, 4.5, .005)
         for t in x:
             if t < t0:
                 sa = sds * (0.4 + 0.6 * t / t0)
             elif t0 <= t <= ts:
                 sa = sds
-            elif t > ts:
+            elif ts < t < tl:
                 sa = sd1 / t
+            elif t >= tl:
+                sa = sd1 * tl / t ** 2
             sa_values.append(sa)
         self.graphWidget.clear()
         self.graphWidget.addItem(self.plot_item(x, np.array(sa_values)))
+        self.graphWidget.setYRange(0, sds * 1.05, padding=0)
 
 
 
