@@ -33,6 +33,7 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         self.fill_province()
         self.update_cities()
         self.set_pga_ss_s1()
+        self.set_fa_fv()
         self.set_sds()
         self.set_sd1()
         self.update_sa_plot()
@@ -48,18 +49,21 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         self.graphWidget.showGrid(x=True, y=True)
 
     def create_connections(self):
-        self.site_class_combo.currentIndexChanged.connect(self.update_ui)
+        self.site_class_combo.currentIndexChanged.connect(self.set_fa_fv)
         self.province.currentIndexChanged.connect(self.update_cities)
         self.city.currentIndexChanged.connect(self.set_pga_ss_s1)
         self.approx_t.clicked.connect(self.approx_t_clicked)
         self.ct.valueChanged.connect(self.set_period)
         self.x.valueChanged.connect(self.set_period)
         self.H.valueChanged.connect(self.set_period)
+        self.ss.valueChanged.connect(self.set_fa)
         self.ss.valueChanged.connect(self.set_sds)
+        self.s1.valueChanged.connect(self.set_fv)
         self.s1.valueChanged.connect(self.set_sd1)
         self.fa.valueChanged.connect(self.set_sds)
         self.fv.valueChanged.connect(self.set_sd1)
         self.sds.valueChanged.connect(self.update_sa_plot)
+        self.tl.valueChanged.connect(self.update_sa_plot)
         self.sd1.valueChanged.connect(self.update_sa_plot)
         # self.systems_treeview.expanded.connect(self.tree_expanded)
         self.systems_treeview.clicked.connect(self.set_system_property)
@@ -141,9 +145,6 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         self.ss.setValue(float(d['Ss']))
         self.s1.setValue(float(d['S1']))
 
-
-        
-
     def set_period(self):
         ct = self.ct.value()
         x = self.x.value()
@@ -217,10 +218,58 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         self.graphWidget.addItem(self.plot_item(x, np.array(sa_values)))
         self.graphWidget.setYRange(0, sds * 1.05, padding=0)
 
+    def set_fa(self):
+        ss = self.ss.value()
+        site_class = self.site_class_combo.currentText()
+        fa = self.forecast_fa_fv(ss, site_class, 'fa.csv')
+        if fa is not None:
+            self.fa.setValue(fa)
+    
+    def set_fv(self):
+        s1 = self.s1.value()
+        site_class = self.site_class_combo.currentText()
+        fv = self.forecast_fa_fv(s1, site_class, 'fv.csv')
+        if fv is not None:
+            self.fv.setValue(fv)
 
+    def set_fa_fv(self):
+        site_class = self.site_class_combo.currentText()
+        if site_class == 'F':
+            QtWidgets.QMessageBox.information(None, 'caution', 'Fa and Fv values shall be determined in accordance with Section 11.4.7 of ASCE 7.')
+            return
+        self.set_fa()
+        self.set_fv()
 
-
-
+    def forecast_fa_fv(self, ss, site_class, filename='fa.csv'):
+        if site_class == 'F':
+            return None
+        fas = dict()
+        with open(f'data/{filename}') as f:
+            reader = csv.reader(f, delimiter=',')
+            ss_limits = reader.__next__()[1:]
+            for row in reader:
+                if row[0] != 'F':
+                    fas[row[0]] = [float(i) for i in row[1:]]
+            ss_limits = [float(i) for i in ss_limits]
+            if ss in ss_limits:
+                i = ss_limits.index(ss)
+                fa = fas[site_class][i]
+            else:
+                ss_limits.append(ss)
+                ss_limits = sorted(ss_limits)
+                ss_i = ss_limits.index(ss)
+                if ss_i == 0:
+                    fa = fas[site_class][0]
+                elif ss_i == len(ss_limits) - 1:
+                    fa = fas[site_class][-1]
+                else:
+                    ss_lower = ss_limits[ss_i - 1]
+                    ss_upper = ss_limits[ss_i + 1]
+                    fa_lower = fas[site_class][ss_i - 1]
+                    fa_upper = fas[site_class][ss_i] # because we add ss to ss_limits
+                    fa = (fa_upper - fa_lower) / (ss_upper - ss_lower) * (ss - ss_lower) + fa_lower
+        return fa
+    
 
 if __name__ == "__main__":
     QtWidgets.QApplication.setHighDpiScaleFactorRoundingPolicy(QtCore.Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
