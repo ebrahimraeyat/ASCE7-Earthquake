@@ -37,6 +37,7 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         self.set_sds()
         self.set_sd1()
         self.update_sa_plot()
+        self.calculate_cs()
         self.create_connections()
 
     def set_plot_widget(self):
@@ -67,12 +68,20 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         self.sd1.valueChanged.connect(self.update_sa_plot)
         # self.systems_treeview.expanded.connect(self.tree_expanded)
         self.systems_treeview.clicked.connect(self.set_system_property)
+        # calculate cs
+        self.sds.valueChanged.connect(self.calculate_cs)
+        self.sd1.valueChanged.connect(self.calculate_cs)
+        self.s1.valueChanged.connect(self.calculate_cs)
+        self.R.valueChanged.connect(self.calculate_cs)
+        self.I.currentIndexChanged.connect(self.calculate_cs)
+        self.period.valueChanged.connect(self.calculate_cs)
+        self.tl.valueChanged.connect(self.calculate_cs)
+        self.site_class_combo.currentIndexChanged.connect(self.calculate_cs)
 
     def set_system_property(self):
         index = self.systems_treeview.selectedIndexes()[0]
         if index.isValid():
             data = index.internalPointer()._data
-            print(data)
             if len(data) == 1:
                 return
             try:
@@ -164,9 +173,6 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
             self.x.setEnabled(False)
             self.H.setEnabled(False)
             self.period.setEnabled(True)
-
-    def update_ui(self):
-        print(self.site_class_combo.currentText())
 
     def set_system_treeview(self):
         items = {}
@@ -269,7 +275,40 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
                     fa_upper = fas[site_class][ss_i] # because we add ss to ss_limits
                     fa = (fa_upper - fa_lower) / (ss_upper - ss_lower) * (ss - ss_lower) + fa_lower
         return fa
-    
+
+    def calculate_cs(self):
+        sds = self.sds.value()
+        r = self.R.value()
+        i = float(self.I.currentText())
+        csi = sds / (r / i)
+        # check with Eq 12.8-3 or 12.8-4
+        t = self.period.value()
+        tl = self.tl.value()
+        sd1 = self.sd1.value()
+        if t <= tl:
+            cs1 = sd1 / (r * t / i)
+        elif t > tl:
+            cs1 = sd1 * tl / (r * t ** 2 / i)
+        # section 11.4.8 Exception 2
+        cs2 = 0
+        site_class = self.site_class_combo.currentText()
+        s1 = self.s1.value()
+        if site_class == 'D' and s1 >= 0.2:
+            if t <= tl:
+                if t <= 1.5:
+                    cs2 = sds / (r / i)
+                elif t > 1.5:
+                    cs2 = 1.5 * sds / (r / i) ** t
+        # Eq 12.8-5
+        cs_min = max(0.044 * sds * i, 0.01)
+        # Eq 12.8-6
+        cs3 = 0
+        if s1 >= 0.6:
+            cs3 = 0.5 * s1 / (r / i)
+        cs = max(csi, cs1, cs2, cs3, cs_min)
+        self.cs_lineedit.setText(f'Cs = {cs:.4f}')
+        return cs
+
 
 if __name__ == "__main__":
     QtWidgets.QApplication.setHighDpiScaleFactorRoundingPolicy(QtCore.Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
