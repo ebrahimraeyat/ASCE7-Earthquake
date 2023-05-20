@@ -22,7 +22,7 @@ CURRENT_DIR = Path(__file__).parent
 
 
 
-class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
+class Ui(*uic.loadUiType(str(CURRENT_DIR / 'main_window.ui'))):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -112,7 +112,7 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
             self.systems_treeview.resizeColumnToContents(column)
     
     def fill_province(self):
-        csv_path = CURRENT_DIR / 'data' / 'PGA-Ss-S1.csv'
+        csv_path = CURRENT_DIR / 'PGA-Ss-S1.csv'
         provinces = []
         with open(csv_path, 'r') as f:
             reader = csv.reader(f, delimiter=',')
@@ -123,7 +123,7 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
 
     def update_cities(self):
         province = self.province.currentText()
-        csv_path = CURRENT_DIR / 'data' / 'PGA-Ss-S1.csv'
+        csv_path = CURRENT_DIR / 'PGA-Ss-S1.csv'
         cities_pga = dict()
         found = False
         with open(csv_path, 'r') as f:
@@ -178,7 +178,7 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         items = {}
 
         # Set some random data:
-        csv_path = Path(__file__).parent / 'data' / 'systems.csv'
+        csv_path = Path(__file__).parent / 'systems.csv'
         with open(csv_path, 'r') as f:
             reader = csv.reader(f, delimiter=',')
             for row in reader:
@@ -250,7 +250,7 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'widgets' / 'main_window.ui'))):
         if site_class == 'F':
             return None
         fas = dict()
-        with open(f'data/{filename}') as f:
+        with open(str(CURRENT_DIR / filename)) as f:
             reader = csv.reader(f, delimiter=',')
             ss_limits = reader.__next__()[1:]
             for row in reader:
