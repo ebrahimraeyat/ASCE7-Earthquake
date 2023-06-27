@@ -678,6 +678,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="facebook_button">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
             <property name="text">
              <string/>
             </property>
