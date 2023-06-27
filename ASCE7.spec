@@ -8,7 +8,7 @@ a = Analysis(
     ['ASCE7.py'],
     pathex=[],
     binaries=[],
-    datas=[('PGA-Ss-S1.csv', '.'), ('fa.csv', '.'), ('fv.csv', '.'), ('systems.csv', '.'), ('main_window.ui', '.')],
+    datas=[('PGA-Ss-S1.csv', '.'), ('systems.csv', '.'), ('main_window.ui', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

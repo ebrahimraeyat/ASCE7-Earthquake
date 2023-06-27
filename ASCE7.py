@@ -1,7 +1,4 @@
-
-
-
-# import os
+import time
 import sys
 import csv
 from pathlib import Path
@@ -9,7 +6,9 @@ from pathlib import Path
 import numpy as np
 
 from PyQt5 import  QtWidgets, uic, QtCore
-from PyQt5.QtCore import QModelIndex
+from PyQt5.QtCore import QModelIndex, Qt
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QSplashScreen, QProgressBar
 
 import pyqtgraph as pg
 
@@ -77,6 +76,11 @@ class Ui(*uic.loadUiType(str(CURRENT_DIR / 'main_window.ui'))):
         self.period.valueChanged.connect(self.calculate_cs)
         self.tl.valueChanged.connect(self.calculate_cs)
         self.site_class_combo.currentIndexChanged.connect(self.calculate_cs)
+        self.facebook_button.clicked.connect(self.openfacebook)
+
+    def openfacebook(self):
+        import webbrowser
+        webbrowser.open("https://www.facebook.com/profile.php?id=100082963371249&mibextid=LQQJ4d")
 
     def set_system_property(self):
         index = self.systems_treeview.selectedIndexes()[0]
@@ -314,6 +318,27 @@ if __name__ == "__main__":
     QtWidgets.QApplication.setHighDpiScaleFactorRoundingPolicy(QtCore.Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
     app = QtWidgets.QApplication(sys.argv)
+    splash_pix = QPixmap(str(CURRENT_DIR / 'images' / 'photo_2023-06-26_02-45-36.jpg'))
+    splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
+    splash.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint)
+    splash.setEnabled(False)
+    # adding progress bar
+    progressbar = QProgressBar(splash)
+    progressbar.setMaximum(10)
+    progressbar.setGeometry(50, splash_pix.height() - 30, splash_pix.width() - 100, 20)
+
+    splash.show()
+    # splash.showMessage("<h1><font color='orange'>civiltools v6.0 Made by Ebrahim Raeyat Roknabadi </font></h1>", Qt.AlignHCenter | Qt.AlignTop, Qt.black)
+
+    for i in range(1, 11):
+        progressbar.setValue(i)
+        t = time.time()
+        while time.time() < t + 0.1:
+            app.processEvents()
+
+    # Simulate something that takes time
+    time.sleep(1)
     window = Ui()
     window.show()
+    splash.finish(window)
     sys.exit(app.exec_())

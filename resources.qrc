@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="images">
+    <file>images/Facebook_logo.png</file>
+    <file>images/photo_2023-06-26_02-45-36.jpg</file>
+  </qresource>
+</RCC>
